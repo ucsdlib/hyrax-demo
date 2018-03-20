@@ -71,3 +71,8 @@ group :development, :test do
   gem 'fcrepo_wrapper'
   gem 'rspec-rails'
 end
+
+# Admin roles
+group :production do
+  gem 'hydra-role-management'
+end
