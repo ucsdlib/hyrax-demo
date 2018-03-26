@@ -17,6 +17,7 @@
       shell: . .rvm/scripts/rvm; gem install rails --version "{{ rails_version }}" --no-document
       args:
         executable: '/bin/bash'
+        creates: .rvm/gems/ruby-{{ ruby_version }}/bin/rails
 
     - name: Install Hyrax dependencies (CentOS/RHEL/EPEL)
       yum:
