@@ -3,24 +3,20 @@
 - name: Install RVM and make initial app
   hosts: default
 
+  vars:
+    ruby_version: '2.4.3'
+    rails_version: '5.0.6'
+
   roles:
-    - { role: rvm_io.ruby, rvm1_rubies: ['2.4.3'], rvm1_user: vagrant }
+    - { role: rvm_io.ruby, rvm1_rubies: [ "{{ 'ruby-' ~ ruby_version }}" ], rvm1_user: vagrant }
     - { role: geerlingguy.repo-epel, become: true }
+
   tasks:
 
-    - name: Install Rails
-      gem:
-        name: rails
-        state: present
-        user_install: yes
-      environment:
-        GEM_HOME: '/home/vagrant/.rvm/gems/ruby-2.4.3'
-        PATH: '/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/vagrant/.rvm/bin:/home/vagrant/.local/bin:/home/vagrant/bin'
-      register: rails_out
-      when: false
-
-    - debug:
-      var: rails_out
+    - name: Install Rails the RVM Way
+      shell: . .rvm/scripts/rvm; gem install rails --version "{{ rails_version }}" --no-document
+      args:
+        executable: '/bin/bash'
 
     - name: Install Hyrax dependencies (CentOS/RHEL/EPEL)
       yum:
@@ -30,5 +26,3 @@
       with_items:
         - java-1.8.0-openjdk-headless
         - nodejs
-      tags:
-        - doit
