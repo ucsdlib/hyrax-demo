@@ -5,6 +5,7 @@
 
   roles:
     - { role: rvm_io.ruby, rvm1_rubies: ['2.4.3'], rvm1_user: vagrant }
+    - { role: geerlingguy.repo-epel, become: true }
   tasks:
 
     - name: Install Rails
@@ -13,9 +14,21 @@
         state: present
         user_install: yes
       environment:
+        GEM_HOME: '/home/vagrant/.rvm/gems/ruby-2.4.3'
         PATH: '/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/vagrant/.rvm/bin:/home/vagrant/.local/bin:/home/vagrant/bin'
       register: rails_out
       when: false
 
     - debug:
       var: rails_out
+
+    - name: Install Hyrax dependencies (CentOS/RHEL/EPEL)
+      yum:
+        name: '{{ item }}'
+        state: present
+      become: true
+      with_items:
+        - java-1.8.0-openjdk-headless
+        - nodejs
+      tags:
+        - doit
