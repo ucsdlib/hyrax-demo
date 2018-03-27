@@ -8,8 +8,8 @@
     rails_version: '5.0.6'
 
   roles:
-    - { role: rvm_io.ruby, rvm1_rubies: [ "{{ 'ruby-' ~ ruby_version }}" ], rvm1_user: vagrant }
     - { role: geerlingguy.repo-epel, become: true }
+    - { role: rvm_io.ruby, rvm1_rubies: [ "{{ 'ruby-' ~ ruby_version }}" ], rvm1_user: "{{ ansible_user_id }}" }
 
   tasks:
 

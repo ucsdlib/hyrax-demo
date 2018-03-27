@@ -1,0 +1,2 @@
+[hyrax-demo]
+lib-hyrax-demo ansible_ssh_user=hyrax
