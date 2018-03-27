@@ -26,33 +26,41 @@
     - debug:
         var: install_out
 
-    - name: '"Start" the server'
-      shell: . /home/vagrant/.rvm/scripts/rvm; ./bin/rails hydra:server
-      args:
-        executable: /bin/bash
-        chdir: '{{ app_dir }}'
-      changed_when: false
-      # this should run forever
-      async: 10
-      poll: 0
-      register: rails_server
+    - block:
+      #- name: 'Start solr_wrapper'
 
-    - debug: var=rails_server
 
-    - name: Wait for the port
-      wait_for:
-        host: localhost
-        port: 3000
-        delay: 10
-        timeout: 30
-        state: started
-      ignore_errors: true
+      - name: '"Start" the server'
+        shell: . /home/vagrant/.rvm/scripts/rvm; ./bin/rails hydra:server
+        args:
+          executable: /bin/bash
+          chdir: '{{ app_dir }}'
+        changed_when: false
+        # this should run forever
+        async: 10
+        poll: 0
+        register: rails_server
 
-    - debug: var=rails_server
 
-    - name: Check on the server
-      async_status:
-        jid: '{{ rails_server.ansible_job_id }}'
-      register: server_status
+      - debug: var=rails_server
 
-    - debug: var=server_status
+      - name: Wait for the port
+        wait_for:
+          host: localhost
+          port: 3000
+          delay: 10
+          timeout: 30
+          state: started
+        ignore_errors: true
+
+      - debug: var=rails_server
+
+      - name: Check on the server
+        async_status:
+          jid: '{{ rails_server.ansible_job_id }}'
+        register: server_status
+
+      - debug: var=server_status
+
+      when: false
+      # end block
