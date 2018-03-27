@@ -1,7 +1,7 @@
 ---
 
 - name: Create the Hyrax App
-  hosts: default
+  hosts: hyrax-demo
 
   vars:
     tmpdir: '/tmp'

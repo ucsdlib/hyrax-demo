@@ -1,7 +1,7 @@
 ---
 
 - name: Install RVM and make initial app
-  hosts: default
+  hosts: hyrax-demo
 
   vars:
     ruby_version: '2.4.3'
