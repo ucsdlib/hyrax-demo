@@ -4,3 +4,4 @@ ansible.cfg
 hosts
 roles
 .vagrant
+.vaultpassword
