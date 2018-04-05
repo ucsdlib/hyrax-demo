@@ -11,13 +11,15 @@
 
   tasks:
 
+          # TODO: bundle jobs template with ansible_processor_vcpus
+
     - name: Prepare the Application Template
       copy:
         dest: '{{ tmpdir }}'
         src: template.rb
 
     - name: Install app
-      shell: . .rvm/scripts/rvm; rails _5.0.6_ new '{{ app_name }}' -m '{{ tmpdir ~ '/' ~ app_template }}'
+      shell: . .rvm/scripts/rvm; rails _5.1.6_ new '{{ app_name }}' -m '{{ tmpdir ~ '/' ~ app_template }}'
       args:
         executable: /bin/bash
         creates: '{{ app_name }}/Gemfile.lock'

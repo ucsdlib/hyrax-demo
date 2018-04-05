@@ -4,8 +4,12 @@
   hosts: hyrax-demo
 
   vars:
-    ruby_version: '2.4.3'
-    rails_version: '5.0.6'
+    ruby_version: '2.5.1'
+    rails_version: '5.1.6'
+    postgres_packages:
+      - postgresql
+      - postgresql-devel
+        #- python-psycopg2 # required for ansible python modules, not hyrax itself
 
   roles:
     - { role: geerlingguy.repo-epel, become: true }
@@ -27,3 +31,6 @@
       with_items:
         - java-1.8.0-openjdk-headless
         - nodejs
+        - "{{ postgres_packages }}"
+      tags:
+        - yum
