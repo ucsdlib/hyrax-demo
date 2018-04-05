@@ -1,0 +1,21 @@
+---
+
+- name: Drop all the owned database tables
+  # not really, everythibng owned by the owner
+  hosts: hyrax-demo
+
+  tasks:
+          - debug: var=hydra_db_port
+          - name: Drop the databases
+            command: |
+              psql 
+                --command 'DROP OWNED BY {{ hydra_db_user }};' 
+                --username {{ hydra_db_user }}  
+                --host {{ hydra_db_host }}
+                --port {{ hydra_db_port }}
+                {{ hydra_db }}
+            environment:
+              PGPASSWORD: '{{ hydra_db_pass }}'
+            register: out
+
+          - debug: var=out
