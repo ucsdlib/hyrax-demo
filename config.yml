@@ -24,6 +24,15 @@
         - pg
       notify: Bundle Install
 
+    - name: Install Other Gems (via RVM)
+      shell: . $HOME/.rvm/scripts/rvm; gem install {{ item }}
+      args:
+        executable: /bin/bash
+      with_items:
+        - solr_wrapper
+        - fcrepo_wrapper
+        - foreverb
+
     - name: Update database defintions
       template:
         src: '{{ item }}.j2'
