@@ -1,0 +1,17 @@
+---
+
+# Stuff stolen from that which was Horton
+
+deploy_target: production
+
+db: postgres
+db_adapter: postgresql
+hydra_db: dams5_horton
+hydra_db_user: dams5_horton
+hydra_db_pass: '{{ vault_hydra_db_pass }}'
+hydra_db_host: bbunny.ucsd.edu
+hydra_db_port: 5432
+
+# Stuff stolen from sufia_dependencies role (orangewolf)
+
+encoding: unicode
