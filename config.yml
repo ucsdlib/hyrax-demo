@@ -15,7 +15,7 @@
       lineinfile:
         path: "{{ app_name }}/Gemfile"
         line: "gem '{{ item }}'"
-        state: present 
+        state: present
       with_items:
         - hydra-role-management
         - pg
