@@ -1,0 +1,28 @@
+---
+
+- name: Config the Hyrax App
+  hosts: hyrax-demo
+
+  vars:
+    app_name: hyrax
+    app_dir: hyrax
+
+  tasks:
+
+          # TODO: bundle jobs template with ansible_processor_vcpus
+
+    - name: Add Required Gems
+      lineinfile:
+        path: "{{ app_name }}/Gemfile"
+        line: "gem '{{ item }}'"
+        state: present 
+      with_items:
+        - hydra-role-management
+        - pg
+
+    - name: Update database defintions
+      template:
+        src: '{{ item }}.j2'
+        dest: '{{ app_dir }}/config/{{ item }}'
+      with_items:
+        - database.yml
