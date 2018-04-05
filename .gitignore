@@ -1,5 +1,6 @@
 .ssh-config
 *.retry
+.retry
 ansible.cfg
 hosts
 roles

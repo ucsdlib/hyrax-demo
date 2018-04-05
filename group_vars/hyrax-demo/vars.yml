@@ -15,3 +15,4 @@ hydra_db_port: 5432
 # Stuff stolen from sufia_dependencies role (orangewolf)
 
 encoding: unicode
+rails_secret_key_base: '{{ vault_rails_secret_key_base }}'
