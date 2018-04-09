@@ -3,17 +3,15 @@
 - name: Install RVM and make initial app
   hosts: hyrax-demo
 
-  vars:
-    ruby_version: '2.5.1'
-    rails_version: '5.1.6'
-    postgres_packages:
-      - postgresql
-      - postgresql-devel
-        #- python-psycopg2 # required for ansible python modules, not hyrax itself
-
   roles:
     - { role: geerlingguy.repo-epel, become: true }
-    - { role: rvm_io.ruby, rvm1_rubies: [ "{{ 'ruby-' ~ ruby_version }}" ], rvm1_user: "{{ ansible_user_id }}" }
+    - { role: rvm_io.ruby,
+        rvm1_rubies: [ "{{ 'ruby-' ~ ruby_version }}" ],
+        rvm1_user: "{{ ansible_user_id }}",
+        rvm1_install_flags: "--ignore-dotfiles --user-install",
+        rvm1_rvm_check_for_updates: false,
+        rvm1_ruby_install_flags: "--binary",
+      }
 
   tasks:
 

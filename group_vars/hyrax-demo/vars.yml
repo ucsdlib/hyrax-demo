@@ -16,3 +16,16 @@ hydra_db_port: 5432
 
 encoding: unicode
 rails_secret_key_base: '{{ vault_rails_secret_key_base }}'
+
+# Stuff factored out from top level playbooks
+
+app_name: hyrax
+app_dir: hyrax
+tmpdir: '/tmp'
+app_template: 'template.rb'
+ruby_version: '2.4.2'
+rails_version: '5.1.6'
+postgres_packages:
+  - postgresql
+  - postgresql-devel
+  #- python-psycopg2 # required for ansible python modules, not hyrax itself

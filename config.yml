@@ -3,10 +3,6 @@
 - name: Config the Hyrax App
   hosts: hyrax-demo
 
-  vars:
-    app_name: hyrax
-    app_dir: hyrax
-
   environment:
     RAILS_ENV: '{{ deploy_target }}'
 
@@ -49,7 +45,7 @@
 
   handlers:
     - name: Bundle Install
-      shell: . $HOME/.rvm/scripts/rvm; bundle install --without test development
+      shell: . $HOME/.rvm/scripts/rvm; bundle install --with production --deployment
       args:
         executable: /bin/bash
         chdir: '{{ app_dir }}'

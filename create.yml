@@ -3,12 +3,6 @@
 - name: Create the Hyrax App
   hosts: hyrax-demo
 
-  vars:
-    tmpdir: '/tmp'
-    app_template: 'template.rb'
-    app_name: hyrax
-    app_dir: hyrax
-
   tasks:
 
           # TODO: bundle jobs template with ansible_processor_vcpus
