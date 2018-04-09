@@ -51,6 +51,7 @@ ansible.cfg: $(SSHCONFIG) $(INVENTORY)
 	@echo "Creating $@"
 	@echo '[defaults]' > $@
 	@echo 'inventory = $(INVENTORY)' >> $@
+	@test -f .vaultpassword && echo 'vault_password_file = .vaultpassword' >> $@ || true
 	@echo '' >> $@
 	@echo '[ssh_connection]' >> $@
 	@echo 'ssh_args = -C -o ControlMaster=auto -o ControlPersist=60s -F $(SSHCONFIG)' >> $@
